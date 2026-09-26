@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Convertor</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+  <body class = "bg-slate-100 min-h-screen">
+     <nav class="bg-blue-600 text-white shadow">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <h1 class="text-xl font-bold">Unit Converter</h1>
+
+                <div class="flex gap-2">
+                    <button
+                        class="tab-button px-4 py-2 rounded hover:bg-blue-500"
+                        data-tab="weight">
+                        Weight
+                    </button>
+
+                    <button
+                        class="tab-button px-4 py-2 rounded hover:bg-blue-500"
+                        data-tab="distance">
+                        Distance
+                    </button>
+
+                    <button
+                        class="tab-button px-4 py-2 rounded hover:bg-blue-500"
+                        data-tab="temperature">
+                        Temperature
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+     <main class="max-w-5xl mx-auto px-4 py-8">
+
+        <!-- Weight -->
+        <section id="weight" class="tab-content">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-bold mb-2">Weight Converter</h2>
+                <p class="text-gray-600 mb-6">
+                    Convert kilograms to pounds or pounds to kilograms.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+
+                    <div>
+                        <label class="block font-medium mb-2">
+                            Single Value
+                        </label>
+
+                        <input
+                            id="weightValue"
+                            type="number"
+                            placeholder="Enter value"
+                            class="w-full border rounded px-3 py-2 mb-3 focus:ring-2 focus:ring-blue-500"
+                        >
+
+                        <select
+                            id="weightDirection"
+                            class="w-full border rounded px-3 py-2 mb-3">
+                            <option value="kgToLb">Kilograms → Pounds</option>
+                            <option value="lbToKg">Pounds → Kilograms</option>
+                        </select>
+
+                        <button
+                            id="weightConvert"
+                            class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                            Convert
+                        </button>
+
+                        <p id="weightResult" class="mt-4 font-semibold"></p>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium mb-2">
+                            Array of Values
+                        </label>
+
+                        <input
+                            id="weightArray"
+                            type="text"
+                            placeholder="Example: 10, 20, 30"
+                            class="w-full border rounded px-3 py-2 mb-3"
+                        >
+
+                        <button
+                            id="weightArrayConvert"
+                            class="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-900">
+                            Convert Array
+                        </button>
+
+                        <p id="weightArrayResult" class="mt-4 font-semibold"></p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Distance -->
+        <section id="distance" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-bold mb-2">Distance Converter</h2>
+                <p class="text-gray-600 mb-6">
+                    Convert kilometers to miles or miles to kilometers.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+
+                    <div>
+                        <label class="block font-medium mb-2">
+                            Single Value
+                        </label>
+
+                        <input
+                            id="distanceValue"
+                            type="number"
+                            placeholder="Enter value"
+                            class="w-full border rounded px-3 py-2 mb-3"
+                        >
+
+                        <select
+                            id="distanceDirection"
+                            class="w-full border rounded px-3 py-2 mb-3">
+                            <option value="kmToMi">Kilometers → Miles</option>
+                            <option value="miToKm">Miles → Kilometers</option>
+                        </select>
+
+                        <button
+                            id="distanceConvert"
+                            class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                            Convert
+                        </button>
+
+                        <p id="distanceResult" class="mt-4 font-semibold"></p>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium mb-2">
+                            Array of Values
+                        </label>
+
+                        <input
+                            id="distanceArray"
+                            type="text"
+                            placeholder="Example: 5, 10, 20"
+                            class="w-full border rounded px-3 py-2 mb-3"
+                        >
+
+                        <button
+                            id="distanceArrayConvert"
+                            class="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-900">
+                            Convert Array
+                        </button>
+
+                        <p id="distanceArrayResult" class="mt-4 font-semibold"></p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Temperature -->
+        <section id="temperature" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-bold mb-2">Temperature Converter</h2>
+                <p class="text-gray-600 mb-6">
+                    Convert Celsius to Fahrenheit or Fahrenheit to Celsius.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+
+                    <div>
+                        <label class="block font-medium mb-2">
+                            Single Value
+                        </label>
+
+                        <input
+                            id="temperatureValue"
+                            type="number"
+                            placeholder="Enter value"
+                            class="w-full border rounded px-3 py-2 mb-3"
+                        >
+
+                        <select
+                            id="temperatureDirection"
+                            class="w-full border rounded px-3 py-2 mb-3">
+                            <option value="cToF">Celsius → Fahrenheit</option>
+                            <option value="fToC">Fahrenheit → Celsius</option>
+                        </select>
+
+                        <button
+                            id="temperatureConvert"
+                            class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                            Convert
+                        </button>
+
+                        <p id="temperatureResult" class="mt-4 font-semibold"></p>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium mb-2">
+                            Array of Values
+                        </label>
+
+                        <input
+                            id="temperatureArray"
+                            type="text"
+                            placeholder="Example: 0, 20, 30"
+                            class="w-full border rounded px-3 py-2 mb-3"
+                        >
+
+                        <button
+                            id="temperatureArrayConvert"
+                            class="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-900">
+                            Convert Array
+                        </button>
+
+                        <p id="temperatureArrayResult" class="mt-4 font-semibold"></p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+  <script src="./main.js" defer></script>
+  </body>
+</body>
+</html>
