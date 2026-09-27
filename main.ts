@@ -34,6 +34,28 @@ const weightLbToKg: Conversion = {
 };
 
 // distance conversion
+type DistanceUnit = "mi" | "km";
+type DistanceValue = number | number[];
+
+const createDistanceConverter = (fromUnit: DistanceUnit, toUnit: DistanceUnit) =>
+    (value: DistanceValue): DistanceValue => {
+        const convertValue = (distance: number): number => {
+            if (fromUnit === toUnit) {
+                return distance;
+            }
+
+            return fromUnit === "mi"
+                ? distance * 1.60934
+                : distance / 1.60934;
+        };
+
+        return Array.isArray(value)
+            ? value.map(convertValue)
+            : convertValue(value);
+    };
+
+const distanceMiToKm = createDistanceConverter("mi", "km");
+const distanceKmToMi = createDistanceConverter("km", "mi");
 
 // Temprature conversion
 
@@ -94,9 +116,55 @@ weightArrayConvert?.addEventListener("click", () => {
 });
 
 // Distance conversion for single input
+const distanceValue = document.querySelector<HTMLInputElement>("#distanceValue");
+const distanceDirection = document.querySelector<HTMLSelectElement>("#distanceDirection");
+const distanceResult = document.querySelector<HTMLParagraphElement>("#distanceResult");
+const distanceConvert = document.querySelector<HTMLButtonElement>("#distanceConvert");
+
+distanceConvert?.addEventListener("click", () => {
+    const value = Number(distanceValue?.value);
+
+    if (!distanceValue?.value.trim() || !Number.isFinite(value)) {
+        distanceResult!.textContent = "Please enter a valid number.";
+        return;
+    }
+
+    const conversion = distanceDirection?.value === "miToKm"
+        ? distanceMiToKm
+        : distanceKmToMi;
+    const result = conversion(value);
+
+    if (distanceResult && typeof result === "number") {
+        distanceResult.textContent = `Result: ${result.toFixed(2)}`;
+    }
+});
 
 
 //Distance conversion for array input
+const distanceArray = document.querySelector<HTMLInputElement>("#distanceArray");
+const distanceArrayResult = document.querySelector<HTMLParagraphElement>("#distanceArrayResult");
+const distanceArrayConvert = document.querySelector<HTMLButtonElement>("#distanceArrayConvert");
+
+distanceArrayConvert?.addEventListener("click", () => {
+    const entries = distanceArray?.value.split(",").map(value => value.trim()) ?? [];
+    const values = entries.map(Number);
+
+    if (entries.length === 0 || entries.some(value => value === "") ||
+        values.some(value => !Number.isFinite(value))) {
+        distanceArrayResult!.textContent = "Please enter a comma-separated list of numbers.";
+        return;
+    }
+
+    const conversion = distanceDirection?.value === "miToKm"
+        ? distanceMiToKm
+        : distanceKmToMi;
+    const result = conversion(values);
+
+    if (distanceArrayResult && Array.isArray(result)) {
+        distanceArrayResult.textContent =
+            `Results: ${result.map(value => value.toFixed(2)).join(", ")}`;
+    }
+});
 
 
 
