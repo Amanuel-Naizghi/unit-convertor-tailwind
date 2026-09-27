@@ -1,4 +1,4 @@
-// Navigation tabs 
+// Navigation tabs for weight, distance and temprature
 const tabButtons = document.querySelectorAll<HTMLButtonElement>(".tab-button");
 const tabContents = document.querySelectorAll<HTMLElement>(".tab-content");
 
@@ -22,7 +22,7 @@ interface Conversion {
     single(value: number): number;
     array(values: number[]): number[];
 }
-
+// weight conversion
 const weightKgToLb: Conversion = {
     single: (value) => value * 2.20462,
     array: (values) => values.map(value => value * 2.20462)
@@ -32,6 +32,12 @@ const weightLbToKg: Conversion = {
     single: (value) => value / 2.20462,
     array: (values) => values.map(value => value / 2.20462)
 };
+
+// distance conversion
+
+// Temprature conversion
+
+
 
 
 // Weight conversion for single input
@@ -86,3 +92,17 @@ weightArrayConvert?.addEventListener("click", () => {
     weightArrayResult!.textContent =
         `Results: ${result.map(value => value.toFixed(2)).join(", ")}`;
 });
+
+// Distance conversion for single input
+
+
+//Distance conversion for array input
+
+
+
+// Temprature conversion for single input
+
+
+//Temprature conversion for array input
+
+
