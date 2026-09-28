@@ -110,7 +110,12 @@ weightArrayConvert?.addEventListener("click", () => {
     const values = weightArray!.value
         .split(",")
         .map(value => Number(value.trim())) // converting all the values of the array into number and triming white space
-        .filter(value => !isNaN(value));// ignoring if there is a non number value inside
+
+    if (values.some(value => isNaN(value))) {
+        weightArrayResult!.textContent =
+            "Please enter valid numbers separated by commas.";
+        return;
+    }
 
     const conversion =
         weightDirection?.value === "kgToLb"
