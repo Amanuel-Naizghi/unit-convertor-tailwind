@@ -102,7 +102,65 @@
 
         <!-- Distance -->
         <section id="distance" class="tab-content hidden">
-            
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-bold mb-2">Distance Converter</h2>
+                <p class="text-gray-600 mb-6">
+                    Convert kilometres to miles or miles to kilometres.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+
+                    <div>
+                        <label for="distanceValue" class="block font-medium mb-2">
+                            Single Value
+                        </label>
+
+                        <input
+                            id="distanceValue"
+                            type="number"
+                            placeholder="Enter value"
+                            class="w-full border rounded px-3 py-2 mb-3 focus:ring-2 focus:ring-blue-500"
+                        >
+
+                        <select
+                            id="distanceDirection"
+                            class="w-full border rounded px-3 py-2 mb-3">
+                            <option value="miToKm">Miles → Kilometres</option>
+                            <option value="kmToMi">Kilometres → Miles</option>
+                        </select>
+
+                        <button
+                            id="distanceConvert"
+                            class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                            Convert
+                        </button>
+
+                        <p id="distanceResult" class="mt-4 font-semibold"></p>
+                    </div>
+
+                    <div>
+                        <label for="distanceArray" class="block font-medium mb-2">
+                            Array of Values
+                        </label>
+
+                        <input
+                            id="distanceArray"
+                            type="text"
+                            placeholder="Example: 10, 20, 30"
+                            class="w-full border rounded px-3 py-2 mb-3 focus:ring-2 focus:ring-blue-500"
+                        >
+
+                        <button
+                            id="distanceArrayConvert"
+                            class="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-900">
+                            Convert Array
+                        </button>
+
+                        <p id="distanceArrayResult" class="mt-4 font-semibold"></p>
+                    </div>
+
+                </div>
+            </div>
         </section>
 
         <!-- Temperature -->
