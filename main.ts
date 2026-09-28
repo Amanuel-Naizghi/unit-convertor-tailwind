@@ -57,8 +57,16 @@ const createDistanceConverter = (fromUnit: DistanceUnit, toUnit: DistanceUnit) =
 const distanceMiToKm = createDistanceConverter("mi", "km");
 const distanceKmToMi = createDistanceConverter("km", "mi");
 
-// Temprature conversion
+// Temperature conversion
+const temperatureCToF: Conversion = {
+    single: (value) => (value * 9 / 5) + 32,
+    array: (values) => values.map(value => (value * 9 / 5) + 32)
+};
 
+const temperatureFToC: Conversion = {
+    single: (value) => (value - 32) * 5 / 9,
+    array: (values) => values.map(value => (value - 32) * 5 / 9)
+};
 
 
 
@@ -168,9 +176,80 @@ distanceArrayConvert?.addEventListener("click", () => {
 
 
 
-// Temprature conversion for single input
+// Temperature conversion for single input
+
+const temperatureValue =
+    document.querySelector<HTMLInputElement>("#temperatureValue");
+
+const temperatureDirection =
+    document.querySelector<HTMLSelectElement>("#temperatureDirection");
+
+const temperatureResult =
+    document.querySelector<HTMLParagraphElement>("#temperatureResult");
+
+const temperatureConvert =
+    document.querySelector<HTMLButtonElement>("#temperatureConvert");
+
+temperatureConvert?.addEventListener("click", () => {
+    const value = Number(temperatureValue?.value);
+
+    if (!temperatureValue || temperatureValue.value.trim() === "" || isNaN(value)) {
+        temperatureResult!.textContent = "Please enter a valid number.";
+        return;
+    }
+
+    const conversion =
+        temperatureDirection?.value === "cToF"
+            ? temperatureCToF
+            : temperatureFToC;
+
+    const result = conversion.single(value);
+
+    if (temperatureResult) {
+        temperatureResult.textContent =
+            `Result: ${result.toFixed(2)}`;
+    }
+});
 
 
-//Temprature conversion for array input
+// Temperature conversion for array input
 
+const temperatureArray =
+    document.querySelector<HTMLInputElement>("#temperatureArray");
 
+const temperatureArrayResult =
+    document.querySelector<HTMLParagraphElement>("#temperatureArrayResult");
+
+const temperatureArrayConvert =
+    document.querySelector<HTMLButtonElement>("#temperatureArrayConvert");
+
+temperatureArrayConvert?.addEventListener("click", () => {
+
+    if (!temperatureArray || temperatureArray.value.trim() === "") {
+        temperatureArrayResult!.textContent =
+            "Please enter valid numbers separated by commas.";
+        return;
+    }
+
+    const values = temperatureArray.value
+        .split(",")
+        .map(value => Number(value.trim()));
+
+    if (values.some(value => isNaN(value))) {
+        temperatureArrayResult!.textContent =
+            "Please enter valid numbers separated by commas.";
+        return;
+    }
+
+    const conversion =
+        temperatureDirection?.value === "cToF"
+            ? temperatureCToF
+            : temperatureFToC;
+
+    const result = conversion.array(values);
+
+    temperatureArrayResult!.textContent =
+        `Results: ${result
+            .map(value => value.toFixed(2))
+            .join(", ")}`;
+});
